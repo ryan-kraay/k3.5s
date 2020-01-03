@@ -1,0 +1,40 @@
+diff --git a/go.mod b/go.mod
+index 0a6a46dd..510c7901 100644
+--- a/go.mod
++++ b/go.mod
+@@ -14,6 +14,7 @@ replace (
+ 	github.com/containerd/fifo => github.com/containerd/fifo v0.0.0-20190816180239-bda0ff6ed73c
+ 	github.com/containerd/go-runc => github.com/containerd/go-runc v0.0.0-20190911050354-e029b79d8cda
+ 	github.com/containerd/typeurl => github.com/containerd/typeurl v0.0.0-20180627222232-a93fcdb778cd
++	github.com/containerd/zfs => github.com/containerd/zfs v0.0.0-20191029215016-456dcfd8803b
+ 	github.com/coreos/flannel => github.com/rancher/flannel v0.11.0-k3s.1
+ 	github.com/coreos/go-systemd => github.com/coreos/go-systemd v0.0.0-20180511133405-39ca1b05acc7
+ 	github.com/docker/distribution => github.com/docker/distribution v0.0.0-20190205005809-0d3efadf0154
+diff --git a/pkg/agent/templates/templates.go b/pkg/agent/templates/templates.go
+index a1d89405..62c9dd67 100644
+--- a/pkg/agent/templates/templates.go
++++ b/pkg/agent/templates/templates.go
+@@ -37,6 +37,13 @@ const ContainerdConfigTemplate = `
+   conf_dir = "{{ .NodeConfig.AgentConfig.CNIConfDir }}"
+ {{end}}
+ 
++#
++# We're forced to hardcode this until
++# https://github.com/rancher/k3s/issues/924 is resolved
++#
++[plugins.cri.containerd]
++  snapshotter = "zfs"
++
+ [plugins.cri.containerd.runtimes.runc]
+   runtime_type = "io.containerd.runc.v2"
+ 
+diff --git a/pkg/containerd/builtins_linux.go b/pkg/containerd/builtins_linux.go
+index 2b28979b..2317e509 100644
+--- a/pkg/containerd/builtins_linux.go
++++ b/pkg/containerd/builtins_linux.go
+@@ -25,4 +25,5 @@ import (
+ 	_ "github.com/containerd/containerd/runtime/v2/runc/options"
+ 	_ "github.com/containerd/containerd/snapshots/native"
+ 	_ "github.com/containerd/containerd/snapshots/overlay"
++	_ "github.com/containerd/zfs"
+ )
