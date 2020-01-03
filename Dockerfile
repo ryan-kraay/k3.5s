@@ -25,7 +25,7 @@ COPY patches build/patches
 # A comma seperates list of patches to apply
 ARG APPLY_PATCHES_CSV=enable_zfs
 RUN set -e; for p in $(echo $APPLY_PATCHES_CSV | tr "," "\n"); \
-        do git apply "build/patches/${p}.patch" && echo "applied ${p}"; \
+        do patch -p 1 < "build/patches/${p}.patch" && echo "applied ${p}"; \
     done && \
     ./scripts/download && ./scripts/build && ./scripts/package-cli
 
