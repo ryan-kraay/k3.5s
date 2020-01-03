@@ -10,10 +10,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag k3.5s:${GITHUB_SHA}
-    - name: Extract the k3s binary
-      run: bash -c "id=$(docker create k3.5s:${GITHUB_SHA}) && docker cp ${id}:/usr/local/bin/k3s ${GITHUB_WORKSPACE}/k3s && docker rm -v ${id}"
+    - name: Build k3s
+      run: |
+        docker build . --file Dockerfile --tag k3.5s:${GITHUB_SHA} &&
+        id=$(docker create k3.5s:${GITHUB_SHA}) && docker cp ${id}:/usr/local/bin/k3s ${GITHUB_WORKSPACE}/k3s && docker rm -v ${id}
     - uses: actions/upload-artifact@v1
       with:
         name: k3s
