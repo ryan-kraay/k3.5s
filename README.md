@@ -71,7 +71,7 @@ Extending
 
 The `Dockerfile` contains many build options and by default most of them are very conservative.  You're welcome to adjust them to fit your needs:
 
- * K3S_GIT_BRANCH:  This refers to a specific branch in the [k3s repo](https://github.com/rancher/k3s) to use.  The default is `release/v1.0`.
+ * K3S_GIT_BRANCH:  This refers to a specific branch in the [k3s repo](https://github.com/rancher/k3s) to use.  The default is `v1.17.4+k3s1`.
  * APPLY_PATCHES_CSV:  A comma separated list of patches which must exist in [patches folder](patches/).  The default is `enable_zfs`.
 
 *NOTE*:  Due to some limitations in k3s and/or k3.5s - it may _not_ be possible to apply certain combinations of patches.
