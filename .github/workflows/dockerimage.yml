@@ -16,5 +16,5 @@ jobs:
         id=$(docker create k3.5s:${GITHUB_SHA}) && docker cp ${id}:/usr/local/bin/k3s ${GITHUB_WORKSPACE}/k3s && docker rm -v ${id}
     - uses: actions/upload-artifact@v1
       with:
-        name: k3s-bin
+        name: k3s
         path: k3s
