@@ -14,7 +14,7 @@ RUN curl -sSL https://storage.googleapis.com/golang/go$GOLANG_VERSION.linux-amd6
 		| tar -v -C /usr/local -xz && \
     mkdir -p /go/src /go/bin && chmod -R 777 /go
 
-ARG K3S_GIT_BRANCH=v1.17.4+k3s1
+ARG K3S_GIT_BRANCH=v1.18.4+k3s1
 
 RUN cd /go && git clone https://github.com/rancher/k3s.git --branch ${K3S_GIT_BRANCH} --single-branch k3s
 WORKDIR /go/k3s
